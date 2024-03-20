@@ -55,6 +55,4 @@ def process_video():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route('/process_output', methods=['POST'])
-
 
