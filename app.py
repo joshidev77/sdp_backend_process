@@ -2,14 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from youtube_transcript_api import YouTubeTranscriptApi
 from pytube import YouTube
-import torch
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering
-
 
 app = Flask(__name__)
 CORS(app)
-
-
 @app.route('/process_video', methods=['POST'])
 def process_video():
     try:
@@ -49,10 +44,8 @@ def process_video():
         # if captions_string:
         #     print(f"Captions for {youtube_url}:\n{captions_string}")
 
-        response_data = {'message': f'SuccessFull !. Now you may proceed to ask Questions !!'}
+        response_data = {'message': f'These are the captions for the youtube video:{captions_string}'}
         return jsonify(response_data)
 
     except Exception as e:
         return jsonify({'error': str(e)})
-
-
