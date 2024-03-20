@@ -44,7 +44,7 @@ def process_video():
         # if captions_string:
         #     print(f"Captions for {youtube_url}:\n{captions_string}")
 
-        response_data = {'message': f'These are the captions for the youtube video:{captions_string}'}
+        response_data = {'message': f'Captions are successfully captured !!'}
         return jsonify(response_data)
 
     except Exception as e:
