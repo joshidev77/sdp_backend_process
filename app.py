@@ -36,7 +36,7 @@ def process_video():
 
                 # Concatenate captions into a single string
                 for caption in captions:
-                    captions_text += f"{caption['text']} "
+                    captions_text += f"{caption['text']}  "
 
                 return captions_text.strip()
 
