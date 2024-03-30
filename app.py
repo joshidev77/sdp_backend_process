@@ -48,7 +48,7 @@ def process_video():
         # Example usage for captions
         captions_string = get_youtube_captions(youtube_url)
 
-        response_data = {'message': f'Captions retrieved successfully : {captions_string}'}
+        response_data = {'message': f'Captions : {captions_string}'}
         return jsonify(response_data)
 
     except Exception as e:
