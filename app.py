@@ -102,7 +102,7 @@ def process_output():
         convo = model.start_chat(history=[])
 
         convo.send_message(finalQuestion)
-        print(convo.last.text)
+        # print(convo.last.text)
         response_answer = {'answer': f'{convo.last.text}'}
         return jsonify(response_answer)
     
