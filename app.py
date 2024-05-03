@@ -28,16 +28,16 @@ def process_video():
 
         def get_youtube_captions(video_url):
             try:
-                # Get YouTube video
+                # getting youtube url
                 yt = YouTube(video_url)
 
-                # Get available captions
+                # extract captions 
                 captions = YouTubeTranscriptApi.get_transcript(yt.video_id)
 
-                # Store captions in a string
+                # captions to variable 
                 captions_text = ""
 
-                # Concatenate captions into a single string
+                # Concatenating captions into single variabke
                 for caption in captions:
                     captions_text += f"{caption['text']}  "
 
@@ -48,7 +48,8 @@ def process_video():
                 return None
 
         youtube_url = video_id
-        # Example usage for captions
+
+        #Captions into the captions_string...
         captions_string = get_youtube_captions(youtube_url)
 
         response_data = {'message': f'Captions : {captions_string}'}
@@ -66,9 +67,12 @@ def process_output():
         question = data.get('question')
         if question is None:
             raise ValueError('Question is not mentioned in the request.')
+        #combining question and caption everytime , when the question is asked..
         finalQuestion =captions_string +".........."+ question
         genai.configure(api_key="AIzaSyDu3noOAGc6qsOZPUQwI4BqLqshOeM8Nsc")
-        # Set up the model
+       
+       
+        # Setting up the model
         generation_config = {
         "temperature": 0.9,
         "top_p": 1,
@@ -76,6 +80,7 @@ def process_output():
         "max_output_tokens": 2048,
         }
 
+        #Safety settings to filter harmfull content 
         safety_settings = [
             {
                 "category": "HARM_CATEGORY_HARASSMENT",
@@ -95,14 +100,17 @@ def process_output():
             },
         ]
 
+        #model initalized 
         model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                                         generation_config=generation_config,
                                         safety_settings=safety_settings)
 
         convo = model.start_chat(history=[])
 
+
+        # request to model
         convo.send_message(finalQuestion)
-        # print(convo.last.text)
+       
         response_answer = {'answer': f'{convo.last.text}'}
         return jsonify(response_answer)
     
